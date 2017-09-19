@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="handlers" type="com.michaeltroger.prediction1.CollectorActivity.MyHandlers"/>
+    </data>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnRecognize"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="@{handlers::onBtnRecognizeClicked}"
+        android:text="@string/ui_collector_button_recognize_title" />
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="@{handlers::onBtnClearClicked}"
+        android:text="@string/ui_collector_button_clear_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvActivities"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+</layout>
