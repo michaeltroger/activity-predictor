@@ -1,4 +1,4 @@
-package com.michaeltroger.prediction1;
+package com.michaeltroger.activitypredictor;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -12,7 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
-import com.michaeltroger.prediction1.databinding.MainBinding;
+import com.michaeltroger.activitypredictor.databinding.MainBinding;
 
 import java.util.ArrayList;
 public class CollectorActivity extends Activity {

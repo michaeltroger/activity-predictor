@@ -1,11 +1,11 @@
-package com.michaeltroger.prediction1;
+package com.michaeltroger.activitypredictor;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.michaeltroger.prediction1.databinding.RecyclerviewRowBinding;
+import com.michaeltroger.activitypredictor.databinding.RecyclerviewRowBinding;
 
 import java.util.Collections;
 import java.util.List;

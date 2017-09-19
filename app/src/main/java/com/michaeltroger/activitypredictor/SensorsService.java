@@ -5,7 +5,7 @@
  * 
  */
 
-package com.michaeltroger.prediction1;
+package com.michaeltroger.activitypredictor;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -21,6 +21,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 
@@ -29,7 +30,8 @@ import com.meapsoft.FFT;
 
 public class SensorsService extends Service implements SensorEventListener {
 
-	private static final int mFeatLen = Globals.ACCELEROMETER_BLOCK_CAPACITY + 2;
+	private static final int M_FEAT_LEN = Globals.ACCELEROMETER_BLOCK_CAPACITY + 2;
+	private static final boolean USE_OVERLAPPING_WINDOW = true;
 	
 	private File mFeatureFile;
 	private SensorManager mSensorManager;
@@ -85,16 +87,21 @@ public class SensorsService extends Service implements SensorEventListener {
 						getResources()
 								.getString(
 										R.string.ui_sensor_service_notification_content))
-				.setSmallIcon(R.drawable.greend).setContentIntent(pi).build();
+				.setSmallIcon(R.drawable.ic_stat_name).setContentIntent(pi).build();
 		final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		notification.flags = notification.flags | Notification.FLAG_ONGOING_EVENT;
 		notificationManager.notify(0, notification);
 
-
+		samplingTask = new SamplingTask();
 		featureVectorTask = new FeatureVectorTask();
-		featureVectorTask.execute();
-        samplingTask = new SamplingTask();
-        samplingTask.execute();
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			samplingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			featureVectorTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			samplingTask.execute();
+			featureVectorTask.execute();
+		}
 
 		return START_NOT_STICKY;
 	}
@@ -176,7 +183,7 @@ public class SensorsService extends Service implements SensorEventListener {
 				    }
 
 					// Dumping buffer
-					double buffer = mAccBuffer.take();
+					final double buffer = mAccBuffer.take();
 					accBlock[blockSize++] = buffer;
 
 					if (!isInitial) {
@@ -218,7 +225,7 @@ public class SensorsService extends Service implements SensorEventListener {
 						broadcastIntent.setAction(Globals.ACTION_NAME);
 						sendBroadcast(broadcastIntent);
 
-					} else if (blockSize2 == Globals.ACCELEROMETER_BLOCK_CAPACITY) {
+					} else if (USE_OVERLAPPING_WINDOW && blockSize2 == Globals.ACCELEROMETER_BLOCK_CAPACITY) {
 						blockSize2 = 0;
 
 						// time = System.currentTimeMillis();

@@ -5,7 +5,7 @@
  * 
  */
 
-package com.michaeltroger.prediction1;
+package com.michaeltroger.activitypredictor;
 
 
 // More on class on constants:
