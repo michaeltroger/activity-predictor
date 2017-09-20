@@ -55,16 +55,16 @@ public class CollectorActivity extends Activity {
     }
 
     private final String[] mLabels = {
-            Globals.CLASS_LABEL_STANDING,
-            Globals.CLASS_LABEL_WALKING,
-            Globals.CLASS_LABEL_RUNNING,
-            Globals.CLASS_LABEL_OTHER
+        Globals.CLASS_LABEL_STANDING,
+        Globals.CLASS_LABEL_WALKING,
+        Globals.CLASS_LABEL_RUNNING,
+        Globals.CLASS_LABEL_OTHER
     };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+
         binding = DataBindingUtil.setContentView(this, R.layout.main);
         binding.setHandlers(new MyHandlers());
 
