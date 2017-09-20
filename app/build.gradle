@@ -6,18 +6,17 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.michaeltroger.prediction1"
+        applicationId "com.michaeltroger.activitypredictor"
         minSdkVersion 24
         targetSdkVersion 26
         jackOptions {
             enabled true
         }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -31,7 +30,7 @@ android {
 
 dependencies {
     compile files('libs/weka.jar')
-    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:recyclerview-v7:26.0.2'
+    compile 'com.android.support:appcompat-v7:26.0.2'
     compile 'com.google.guava:guava:23.0-android'
 }
